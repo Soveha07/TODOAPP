@@ -1,0 +1,69 @@
+<% content_for :title, "Tasks" %>
+
+<h3 class="text-center">Tasks</h3>
+
+<div class="container-fluid d-flex">
+  <div class="align-self-start">
+    <%= button_to 'New Task', new_task_path, method: :get, class: 'btn btn-outline-danger text-white mb-2 navBtn' %>
+    </br>
+  </div>
+</div>
+
+<div id="tasks" class="container d-flex justify-content-end mr-3">
+  <div class="row mb-4">
+    <%= form_with url: tasks_path, method: :get, local: true, class: "d-flex align-items-center" do |f| %>
+      <div class="mx-2">
+        <%= f.collection_select :category_id, Category.all, :id, :name, 
+                                { include_blank: "All Categories", selected: params[:category_id] }, 
+                                class: "form-control" %>
+      </div>
+      <div class="mx-2">
+        <%= f.select :status, options_for_select(Task::STATUSES.map { |status| [status.humanize, status] }, selected: params[:status]), 
+                     { include_blank: "All Statuses" }, 
+                     class: "form-control" %>
+      </div>
+      <div class="mx-2">
+        <%= f.submit "Filter", class: "btn btn-outline-primary text-white" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<div id="tasks" class="container-fluid">
+  <table class="table table-striped">
+    <thead class="text-primary">
+      <tr>
+        <th><%= sort_link('Task Description', 'description') %></th>
+        <th><%= sort_link('Category', 'category_id') %></th>
+        <th><%= sort_link('Complete Status', 'is_completed') %></th>
+        <th><%= sort_link('Status', 'status') %></th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="text-white">
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= task.description %></td>
+          <td><%= task.category.name %></td>
+          <td><%= task.is_completed ? 'Completed' : 'Incomplete' %></td>
+          <td><%= task.status %></td>
+          <td>
+            <div class="d-flex justify-content-around">
+              <%= button_to (task.is_completed ? 'Mark as Incomplete' : 'Mark as Complete'),
+                          toggle_complete_task_path(task),
+                          method: :patch,
+                          class: 'btn btn-outline-info text-white me-2' %>
+              <%= link_to "Edit", edit_task_path(task), class: 'btn btn-outline-info text-white me-2' %>
+              <%= link_to "Delete", task_path(task), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-outline-danger text-white' %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+
+

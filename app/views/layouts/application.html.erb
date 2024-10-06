@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Techpreneur" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <%= yield :head %>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%# Header %>
+    <nav class="navbar navbar-dark mb-2 d-flex" style="background-color: #460000">
+      <div class="container-fluid">
+        <div class="row w-100">
+          <div class="col-6 d-flex justify-content-start">
+            <h3 class="text-white">TO-DO LIST</h3>
+          </div>
+          <div class="col-6 d-flex justify-content-end">
+            <%= link_to 'Task', tasks_path, class: 'text-white mr-3 d-flex align-self-center' %>
+            <%= link_to 'Category', categories_path, class: 'text-white d-flex align-self-center' %>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </head>
+  <style>
+    /* Ensure the body and html take up 100% height */
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    .full-height {
+      height: 80vh; /* 100% of the viewport height */
+    }
+
+    #task-card, #category-card {
+      background-color: black;
+    }
+     
+    .navBtn {
+      border: 3px solid #6f0000;
+    }
+
+    .navBtn:hover {
+      background-color: #6f0000;
+      border: 3px solid #6f0000;
+    }
+  </style>
+  <body style="background-color:black; color: white;">
+
+  <% if notice %>
+      <div id="flash" class="alert alert-info text-center">
+        <%= notice %>
+      </div>
+  <% end %>
+ 
+    <%= yield %>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      $(function() {
+        $("#flash").fadeOut(7000);
+      });
+    </script>
+   <%= javascript_include_tag 'flash_notice.js' %>
+  </body>
+</html>
+
+
+

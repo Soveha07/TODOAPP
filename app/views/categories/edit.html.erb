@@ -1,0 +1,9 @@
+<% content_for :title, "Editing category" %>
+
+<%= render "form", category: @category %>
+
+<br>
+
+<div class="d-flex justify-content-end mr-5">
+  <%= link_to "Back to Category", categories_path, class: 'btn navBtn text-white' %>
+</div>

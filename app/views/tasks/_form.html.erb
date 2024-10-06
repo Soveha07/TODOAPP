@@ -1,0 +1,39 @@
+<div class="container-fluid d-flex column justify-content-center align-items-center full-height">
+  <div class="form-group p-3 border rounded shadow h-60">    
+    <%= form_with(model: task) do |form| %>
+      <% if task.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+          <ul>
+            <% task.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <h5 class="text-center mb-4">Task</h5>
+      <div class="mb-3">
+        <%= form.label :description, style: "display: block" %>
+        <%= form.text_field :description, class:"form-control", placeholder:"Go to School..." %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :category_id, "Category", style: "display: block" %>
+        <%= form.select :category_id, 
+                Category.all.map { |c| ["#{c.id}. #{c.name}", c.id] }, 
+                { prompt: "Select a Category" }, 
+                { class: "form-control" } %>
+      </div>
+
+      <div class="mb-4">
+        <%= form.label :status, "Status", style: "display: block" %>
+        <%= form.select :status, Task::STATUSES.map { |status| [status.titleize, status] }, { selected: task.status }, class: 'form-control' %>
+      </div>
+      <div class="d-flex flex-column">
+        <%= form.submit 'Save Task', class: 'btn navBtn text-white align-self-end' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+

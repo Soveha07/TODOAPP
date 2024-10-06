@@ -1,0 +1,9 @@
+<% content_for :title, "New task" %>
+
+<%= render "form", task: @task %>
+
+<br>
+
+<div class="d-flex justify-content-end mr-5">
+  <%= link_to "Back to task", tasks_path, class: 'btn navBtn text-white' %>
+</div>

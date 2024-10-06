@@ -1,0 +1,42 @@
+<% content_for :title, "Categories" %>
+
+<h3 class="text-center">Categories</h3>
+
+<div class="container-fluid d-flex">
+  <div class="align-self-start">
+    <%= button_to 'New Category', new_category_path, method: :get, class: 'btn navBtn text-white mb-2' %>
+  </div>
+</div>
+
+<div id="tasks" class="container-fluid mt-4">
+  <div class="row d-flex justify-content-start flex-wrap">
+    <% @categories.each do |category| %>
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
+        <div class="card w-100 border rounded shadow" id="category-card">
+          <div class="card-body">
+            <div>
+              <h5 class="card-title">Name: <%= category.name %></h5>
+            </div>
+            <p class="card-title">
+              Category Id: <%= category.id %>
+            </p>
+            <p class="card-title mb-3">
+              Updated <%= time_ago_in_words(category.updated_at) %> ago
+            </p>
+            
+            <div class="d-flex flex-row justify-content-center align-items-center">
+              <div>
+                <%= link_to "Edit", edit_category_path(category), class: 'btn btn-outline-info text-white mr-5' %> 
+              </div>       
+              <div>
+                <%= button_to "Delete", category, method: :delete, class: 'btn btn-outline-danger text-white' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
