@@ -5,6 +5,6 @@ module ApplicationHelper
     end
     
     def sort_icon(direction)
-        direction == "asc" ? "▲" : "▼"
+        direction == "asc" ? "▼": "▲"
     end
 end

@@ -15,12 +15,12 @@
       <div class="mx-2">
         <%= f.collection_select :category_id, Category.all, :id, :name, 
                                 { include_blank: "All Categories", selected: params[:category_id] }, 
-                                class: "form-control" %>
+                                class: "form-control bg-transparent navBtn text-info" %>
       </div>
       <div class="mx-2">
         <%= f.select :status, options_for_select(Task::STATUSES.map { |status| [status.humanize, status] }, selected: params[:status]), 
                      { include_blank: "All Statuses" }, 
-                     class: "form-control" %>
+                     class: "form-control bg-transparent navBtn text-info" %>
       </div>
       <div class="mx-2">
         <%= f.submit "Filter", class: "btn btn-outline-primary text-white" %>
