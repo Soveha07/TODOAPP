@@ -1,3 +1,5 @@
 # TODOAPP
-Techpreneur's project
+Techpreneur's project 
+# Technology
+Ruby on Rails
 
