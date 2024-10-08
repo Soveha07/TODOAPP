@@ -4,22 +4,20 @@ class TasksController < ApplicationController
   # GET /tasks or /tasks.json
   def index
     # Handle sorting
-    sort_column = params[:sort] || 'description' # Default sorting column
-    sort_direction = params[:direction] || 'asc' # Default sorting direction
+    sort_column = params[:sort] || 'description' 
+    sort_direction = params[:direction] || 'asc' 
   
     @tasks = Task.all
   
-    # Handle filtering by category
+    # Handle filtering 
     if params[:category_id].present?
       @tasks = @tasks.where(category_id: params[:category_id])
     end
-  
-    # Handle filtering by status
+ 
     if params[:status].present?
       @tasks = @tasks.where(status: params[:status])
     end
-  
-    # Handle sorting for the status column with custom order
+
     if sort_column == 'status'
       @tasks = @tasks.order(Arel.sql("CASE
                                         WHEN status = 'pending' THEN 1
